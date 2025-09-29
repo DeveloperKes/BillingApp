@@ -2,23 +2,27 @@
     <h3 class="header-title">Tipo de búsqueda</h3>
     <fieldset class="field-group">
         <legend>Cliente</legend>
-        <input type="radio" name="search-type" checked>
+        <input value="client" [(ngModel)]="typeSearch" type="radio" name="search-type" checked>
     </fieldset>
     <fieldset class="field-group">
         <legend>Número Factura</legend>
-        <input type="radio" name="search-type">
+        <input value="number" [(ngModel)]="typeSearch" type="radio" name="search-type">
     </fieldset>
 </header>
 <main class="card">
     <section class="client-invoice">
         <form class="first-step">
+            @if (typeSearch == "client"){
             <app-selector-client (selectEvent)="clientId.set($event)" />
+            }
+            @else {
             <fieldset class="field-group">
                 <legend>Número de Factura</legend>
                 <input [(ngModel)]="invoiceNumber" [ngModelOptions]="{standalone: true}" type="number"
                     placeholder="-----">
             </fieldset>
-            <button class="button">Buscar</button>
+            }
+            <button (click)="search()" class="button">Buscar</button>
         </form>
         <table>
             <thead>
@@ -29,11 +33,13 @@
                 </tr>
             </thead>
             <tbody>
+                @for (invoice of invoices(); track $index) {
                 <tr>
-                    <th scope="row">3456</th>
-                    <td>11/05/2023</td>
-                    <td>{{1000 | currency: 'USD': 'symbol': '1.0-0'}}</td>
+                    <th scope="row">{{invoice.invoiceNumber}}</th>
+                    <td>{{invoice.invoiceDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{invoice.totalAmount| currency: 'USD': 'symbol': '1.0-0'}}</td>
                 </tr>
+                }
             </tbody>
         </table>
     </section>

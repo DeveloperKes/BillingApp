@@ -4,7 +4,7 @@ import { InvoiceService } from '../services/invoice.service';
 import { SelectorClientComponent } from '../../clients/elements/selector-client/selector-client.component';
 import { Product, SelectorProductComponent } from '../../products';
 import { FormsModule } from '@angular/forms';
-import { InvoiceDetail } from '../interfaces/InvoiceDetail';
+import { InvoiceDetailPayload } from '../interfaces/InvoiceDetail';
 
 interface ProductInvoice extends Partial<Product> {
   quantity: number,
@@ -65,7 +65,7 @@ export class CreateInvoiceComponent {
       clientId: this.clientId(),
       invoiceDetails: this.products()
         .filter(prod => typeof prod.id === 'number')
-        .map<InvoiceDetail>((prod) => ({ productId: prod.id as number, quantity: prod.quantity, notes: "" })),
+        .map<InvoiceDetailPayload>((prod) => ({ productId: prod.id as number, quantity: prod.quantity, notes: "" })),
       invoiceNumber: this.invoiceNumber
     }).subscribe({
       next: (data) => {
@@ -73,5 +73,11 @@ export class CreateInvoiceComponent {
 
       }
     })
+  }
+
+  cleanForm(){
+    this.products.set([]);
+    this.invoiceNumber = 0;
+    this.clientId.set(0);
   }
 }
