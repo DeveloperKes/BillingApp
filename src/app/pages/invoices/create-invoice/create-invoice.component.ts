@@ -5,6 +5,8 @@ import { SelectorClientComponent } from '../../clients/elements/selector-client/
 import { Product, SelectorProductComponent } from '../../products';
 import { FormsModule } from '@angular/forms';
 import { InvoiceDetailPayload } from '../interfaces/InvoiceDetail';
+import { NotificationService } from '../../../shared/services/notification.service';
+import { Router } from '@angular/router';
 
 interface ProductInvoice extends Partial<Product> {
   quantity: number,
@@ -28,7 +30,11 @@ export class CreateInvoiceComponent {
   public invoiceNumber: number = 0;
   public clientId = signal<number>(0);
 
-  constructor(private readonly _invoice: InvoiceService) {
+  constructor(
+    private readonly _invoice: InvoiceService,
+    private readonly _notify: NotificationService,
+    private readonly _router: Router
+  ) {
 
   }
 
@@ -69,15 +75,33 @@ export class CreateInvoiceComponent {
       invoiceNumber: this.invoiceNumber
     }).subscribe({
       next: (data) => {
-        console.log("✌️ Se creo esta chimbada");
-
+        const { code } = data;
+        if (code == 0) {
+          this.cleanForm(false);
+          this._notify.success("Factura creada")
+        }
+      },
+      error: (err) => {
+        if (err.error) {
+          const { code } = err.error;
+          if (code == 400) {
+            this._notify.warning("Valida la información suministrada")
+          }
+        } else {
+          this._notify.error("Ha ocurrido un error, intente más tarde")
+        }
       }
     })
   }
 
-  cleanForm(){
+  cleanForm(sendAlert = true) {
     this.products.set([]);
     this.invoiceNumber = 0;
     this.clientId.set(0);
+    if (sendAlert) this._notify.info("Se ha limpiado el formulario")
+  }
+
+  goToInvoices() {
+    this._router.navigate(['/'])
   }
 }

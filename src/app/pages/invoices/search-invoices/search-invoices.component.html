@@ -13,7 +13,7 @@
     <section class="client-invoice">
         <form class="first-step">
             @if (typeSearch == "client"){
-            <app-selector-client (selectEvent)="clientId.set($event)" />
+            <app-selector-client [clientId]="clientId" (selectEvent)="clientId.set($event)" />
             }
             @else {
             <fieldset class="field-group">
@@ -24,23 +24,24 @@
             }
             <button (click)="search()" class="button">Buscar</button>
         </form>
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col">Número de factura</th>
-                    <th scope="col">Fecha de emisión</th>
-                    <th scope="col">Total facturado</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (invoice of invoices(); track $index) {
-                <tr>
-                    <th scope="row">{{invoice.invoiceNumber}}</th>
-                    <td>{{invoice.invoiceDate | date: 'dd/MM/yyyy'}}</td>
-                    <td>{{invoice.totalAmount| currency: 'USD': 'symbol': '1.0-0'}}</td>
-                </tr>
-                }
-            </tbody>
-        </table>
+        <button (click)="goToCreate()" class="button">Nueva Factura</button>
     </section>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Número de factura</th>
+                <th scope="col">Fecha de emisión</th>
+                <th scope="col">Total facturado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (invoice of invoices(); track $index) {
+            <tr>
+                <th scope="row">{{invoice.invoiceNumber}}</th>
+                <td>{{invoice.invoiceDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{invoice.totalAmount| currency: 'USD': 'symbol': '1.0-0'}}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </main>

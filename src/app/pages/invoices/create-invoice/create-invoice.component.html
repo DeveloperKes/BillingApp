@@ -1,11 +1,12 @@
 <header>
     <h3 class="header-title">Nueva factura</h3>
     <button (click)="cleanForm()" class="button">Nuevo</button>
+    <button (click)="goToInvoices()" class="button">Ver todas las facturas</button>
 </header>
 <main class="card">
     <section class="client-invoice">
         <form class="first-step">
-            <app-selector-client (selectEvent)="clientId.set($event)" />
+            <app-selector-client [clientId]="clientId" (selectEvent)="clientId.set($event)" />
             <fieldset class="field-group">
                 <legend>Número de Factura</legend>
                 <input [(ngModel)]="invoiceNumber" [ngModelOptions]="{standalone: true}" type="number"
@@ -34,12 +35,15 @@
                     {{product.price | currency : 'USD': 'symbol': '1.0-0'}}
                 </td>
                 <td>
-                    <button (click)="decreaseQuantity($index)" class="icon-button">-</button>
-                    {{product.quantity}}
-                    <button (click)="increaseQuantity($index)" class="icon-button">+</button>
+                    <div class="quantity-counter">
+                        <button (click)="decreaseQuantity($index)" class="button icon">-</button>
+                        {{product.quantity}}
+                        <button (click)="increaseQuantity($index)" class="button icon">+</button>
+                    </div>
                 </td>
                 <td>
-                    <img [src]="product.image || ('https://placehold.co/100x100?text=' + (product.name || 'Not Found'))"
+                    <img class="product-image"
+                        [src]="product.image || ('https://placehold.co/100x100?text=' + (product.name || 'Not Found'))"
                         alt="Funko Pict">
                 </td>
                 <td>
