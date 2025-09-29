@@ -1,0 +1,40 @@
+<header>
+    <h3 class="header-title">Tipo de búsqueda</h3>
+    <fieldset class="field-group">
+        <legend>Cliente</legend>
+        <input type="radio" name="search-type" checked>
+    </fieldset>
+    <fieldset class="field-group">
+        <legend>Número Factura</legend>
+        <input type="radio" name="search-type">
+    </fieldset>
+</header>
+<main class="card">
+    <section class="client-invoice">
+        <form class="first-step">
+            <app-selector-client (selectEvent)="clientId.set($event)" />
+            <fieldset class="field-group">
+                <legend>Número de Factura</legend>
+                <input [(ngModel)]="invoiceNumber" [ngModelOptions]="{standalone: true}" type="number"
+                    placeholder="-----">
+            </fieldset>
+            <button class="button">Buscar</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Número de factura</th>
+                    <th scope="col">Fecha de emisión</th>
+                    <th scope="col">Total facturado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">3456</th>
+                    <td>11/05/2023</td>
+                    <td>{{1000 | currency: 'USD': 'symbol': '1.0-0'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>

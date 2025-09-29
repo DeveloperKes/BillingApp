@@ -1,0 +1,72 @@
+<header>
+    <h3 class="header-title">Nueva factura</h3>
+    <button class="button">Nuevo</button>
+</header>
+<main class="card">
+    <section class="client-invoice">
+        <form class="first-step">
+            <app-selector-client (selectEvent)="clientId.set($event)" />
+            <fieldset class="field-group">
+                <legend>Número de Factura</legend>
+                <input [(ngModel)]="invoiceNumber" [ngModelOptions]="{standalone: true}" type="number"
+                    placeholder="-----">
+            </fieldset>
+        </form>
+    </section>
+    <button (click)="addNewProduct()" class="button">Agregar producto</button>
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Precio Unitario</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Totales</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (product of products(); track $index) {
+            <tr>
+                <th scope="row">
+                    <app-selector-product (selectEvent)="fillCollumns($event, $index)" />
+                </th>
+                <td>
+                    {{product.price | currency : 'USD': 'symbol': '1.0-0'}}
+                </td>
+                <td>
+                    <button (click)="decreaseQuantity($index)" class="icon-button">-</button>
+                    {{product.quantity}}
+                    <button (click)="increaseQuantity($index)" class="icon-button">+</button>
+                </td>
+                <td>
+                    <img [src]="product.image || ('https://placehold.co/100x100?text=' + (product.name || 'Not Found'))"
+                        alt="Funko Pict">
+                </td>
+                <td>
+                    {{product.total| currency : 'USD': 'symbol': '1.0-0'}}
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <section class="amounts">
+        <table>
+            <tbody>
+                <tr>
+                    <th scope="row">Sub total</th>
+                    <td>{{subtotal() | currency : 'USD': 'symbol': '1.0-0'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Impuestos (19%)</th>
+                    <td>{{tax() | currency : 'USD': 'symbol': '1.0-0'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Total</th>
+                    <td>{{total() | currency : 'USD': 'symbol': '1.0-0'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <button (click)="saveInvoice()" [disabled]="products().length == 0 || invoiceNumber == 0 || !isValidProducts()"
+        class="button">Guardar</button>
+</main>

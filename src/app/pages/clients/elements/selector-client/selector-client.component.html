@@ -1,0 +1,9 @@
+<fieldset class="field-group">
+    <legend>Cliente</legend>
+    <select [(ngModel)]="clientId" (ngModelChange)="onClientChange($event)">
+        <option value="0" selected>Seleccione un cliente...</option>
+        @for (client of clients(); track $index) {
+        <option [value]="client.id">{{client.businessName}}</option>
+        }
+    </select>
+</fieldset>

@@ -1,0 +1,6 @@
+<select [(ngModel)]="productId" (ngModelChange)="onProductChange($event)">
+    <option disabled value="0" selected>Seleccione un producto...</option>
+    @for (product of products(); track $index) {
+    <option [value]="product.id">{{product.name}}</option>
+    }
+</select>
