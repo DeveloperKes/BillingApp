@@ -19,5 +19,7 @@ export const routes: Routes = [
             invoices: allInvoicesResolver,
             clients: allClientsResolver,
         }
-    }
+    },
+    { path: "", pathMatch: 'full', redirectTo: "" },
+    { path: "**", pathMatch: 'full', redirectTo: "" },
 ];

@@ -1,4 +1,4 @@
-import { Component, effect, EventEmitter, Output, signal } from '@angular/core';
+import { Component, effect, EventEmitter, Input, Output, signal } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Client } from '../../interfaces/Client';
 import { map } from 'rxjs';
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class SelectorClientComponent {
   public clients = signal<Client[]>([]);
-  public clientId = 0;
+  @Input() clientId = signal<number>(0);
   @Output() selectEvent = new EventEmitter<number>();
 
   constructor(

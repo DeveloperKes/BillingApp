@@ -1,0 +1,65 @@
+@use '../../../../styles' as *;
+
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    padding: 1rem;
+}
+
+main.card {
+    width: 65vw;
+    background: $secondary;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 12px 20px 1px #1a1a1a45;
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+
+    section.client-invoice {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        button.button {
+            margin-bottom: 8px;
+        }
+
+        form.first-step {
+            display: flex;
+            align-items: flex-end;
+            column-gap: 16px;
+
+            button.button {
+                margin-bottom: 8px;
+            }
+        }
+    }
+
+    table.product-table {
+        div.quantity-counter {
+            display: flex;
+            align-items: center;
+            column-gap: 8px;
+        }
+
+        img.product-image {
+            width: 64px;
+            height: 64px;
+        }
+    }
+
+    section.amounts {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+
+        table {
+            width: 40%;
+        }
+    }
+}

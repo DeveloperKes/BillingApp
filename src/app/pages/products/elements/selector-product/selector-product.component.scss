@@ -1,0 +1,9 @@
+@use '../../../../../styles' as *;
+
+select.select-in-table {
+    background: $white;
+    border: 1px solid $background;
+    padding: 8px 16px;
+    border-radius: 4px;
+    outline: none;
+}
