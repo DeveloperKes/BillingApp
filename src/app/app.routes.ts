@@ -4,11 +4,15 @@ import { allProductsResolver } from './pages/products/resolvers/products.resolve
 
 export const routes: Routes = [
     {
-        path: "",
+        path: "create",
         loadComponent: () => import('./pages/invoices').then(c => c.CreateInvoiceComponent),
-        resolve:{
+        resolve: {
             clients: allClientsResolver,
             products: allProductsResolver
         }
+    },
+    {
+        path: '',
+        loadComponent: () => import('./pages/invoices').then(c => c.SearchInvoicesComponent)
     }
 ];

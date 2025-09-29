@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ListResponse } from '../../../shared/interfaces/http';
+import { CommonResponse, ListResponse } from '../../../shared/interfaces/http';
+import { InvoicePayload } from '../interfaces/Invoice';
 
 @Injectable({
   providedIn: 'root'
@@ -11,5 +12,9 @@ export class InvoiceService {
 
   public getAllInvoices() {
     return this._http.get<ListResponse<any>>('invoices');
+  }
+
+  public saveInvoice(payload: InvoicePayload) {
+    return this._http.post<CommonResponse<number>>('invoices/', payload)
   }
 }

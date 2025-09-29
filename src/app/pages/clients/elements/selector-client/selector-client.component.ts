@@ -1,17 +1,20 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, EventEmitter, Output, signal } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Client } from '../../interfaces/Client';
 import { map } from 'rxjs';
 import { ListResponse } from '../../../../shared/interfaces/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-selector-client',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './selector-client.component.html',
   styleUrl: './selector-client.component.scss'
 })
 export class SelectorClientComponent {
   public clients = signal<Client[]>([]);
+  public clientId = 0;
+  @Output() selectEvent = new EventEmitter<number>();
 
   constructor(
     private readonly _activeRoute: ActivatedRoute
@@ -30,5 +33,9 @@ export class SelectorClientComponent {
         this.clients.set([]);
       }
     })
+  }
+
+  onClientChange(newId: number) {
+    this.selectEvent.emit(newId);
   }
 }
