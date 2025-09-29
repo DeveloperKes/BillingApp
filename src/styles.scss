@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+$black: #1a1a1a;
+$white: #fefefe;
+
+$primary: #F2F2F2;
+$secondary: #EEE5E5;
+$background: #D5D5D5;
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    color: $black;
+    background: $background;
+    font-family: 'Roboto', sans-serif;
+}

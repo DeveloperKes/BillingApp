@@ -1,0 +1,67 @@
+<header>
+    <h3 class="header-title">Nueva factura</h3>
+    <button class="button">Nuevo</button>
+</header>
+<main class="card">
+    <section class="client-invoice">
+        <form class="first-step">
+            <app-selector-client />
+            <fieldset class="field-group">
+                <legend>Número de Factura</legend>
+                <input type="number" placeholder="-----">
+            </fieldset>
+        </form>
+    </section>
+    <button class="button">Agregar producto</button>
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Precio Unitario</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Totales</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">
+                    <select>
+                        <option value="0" selected>Seleccione un producto...</option>
+                        <option value="1">Ashoka</option>
+                        <option value="2">Crogu</option>
+                    </select>
+                </th>
+                <td>
+                    {{1000 | currency : 'USD': 'symbol': '1.0-0'}}
+                </td>
+                <td>{{1}}</td>
+                <td>
+                    <img src="" alt="Imagen Ashoka">
+                </td>
+                <td>
+                    {{1000 | currency : 'USD': 'symbol': '1.0-0'}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <section class="amounts">
+        <table>
+            <tbody>
+                <tr>
+                    <th scope="row">Sub total</th>
+                    <td>{{1000 | currency : 'USD': 'symbol': '1.0-0'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Impuestos (19%)</th>
+                    <td>{{1000 | currency : 'USD': 'symbol': '1.0-0'}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Total</th>
+                    <td>{{1000 | currency : 'USD': 'symbol': '1.0-0'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <button class="button">Guardar</button>
+</main>
